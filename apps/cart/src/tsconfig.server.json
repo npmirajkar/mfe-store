@@ -1,0 +1,17 @@
+// Path: apps/cart/tsconfig.server.json
+{
+    "compilerOptions": {
+      "target": "ES2018",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true,
+      "outDir": "./dist/server",
+      "rootDir": "./src"
+    },
+    "include": ["src/server.ts", "src/api/**/*.ts", "src/store/**/*.ts"],
+    "exclude": ["node_modules"]
+  }

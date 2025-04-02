@@ -1,18 +1,22 @@
-import * as express from 'express';
-import * as cors from 'cors';
+// Path: apps/cart/src/api/cartApi.ts
+import * as expressModule from 'express';
+import * as corsModule from 'cors';
 import { store } from '../store/store';
 import { addItem } from '../store/cartSlice';
 
-const app = express.default();
+// Create a new instance of the express application
+const expressApp = expressModule.default || expressModule;
+const corsMiddleware = corsModule.default || corsModule;
+const app = expressApp();
 
 // Configure CORS to allow requests from all origins during development
-app.use(cors.default({
+app.use(corsMiddleware({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use(express.json());
+app.use(expressApp.json());
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

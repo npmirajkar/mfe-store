@@ -7,7 +7,7 @@
     "dev": "webpack serve --port 3002",
     "start": "webpack serve --port 3002",
     "build": "webpack --mode production",
-    "start:api": "ts-node src/server.ts"
+    "start:api": "node src/server.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",

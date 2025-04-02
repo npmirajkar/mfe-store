@@ -1,3 +1,4 @@
+// Path: apps/shell/webpack.config.js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const path = require('path');
@@ -26,16 +27,21 @@ module.exports = {
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
       "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     },
-    proxy: {
-      '/api': {
+    // Fix: Remove the nested object structure for proxy
+    proxy: [
+      {
+        context: ['/api'],
         target: 'http://localhost:3003',
         changeOrigin: true,
-        secure: false,
-      },
-    },
+        secure: false
+      }
+    ]
   },
   output: {
     publicPath: 'http://localhost:3000/',
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
   module: {
     rules: [
@@ -53,9 +59,6 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-  },
   plugins: [
     new ModuleFederationPlugin({
       name: 'shell',
@@ -70,6 +73,7 @@ module.exports = {
         '@reduxjs/toolkit': { singleton: true, eager: true, requiredVersion: '^2.2.1' },
         'react-redux': { singleton: true, eager: true, requiredVersion: '^9.1.0' },
         'redux-persist': { singleton: true, eager: true, requiredVersion: '^6.0.0' },
+        'lucide-react': { singleton: true, eager: true, requiredVersion: '^0.344.0' },
       },
     }),
     new HtmlWebpackPlugin({
